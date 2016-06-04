@@ -1,11 +1,14 @@
 var express    = require('express')
-var app        = express()
-var path 	   = require('path')
+var app        = express();
+var path 	   = require('path');
 var adminRotas = express.Router (); 
+var mainPage   = express.Router ();
 
+mainPage.get('/', function(req, res){
+	res.sendFile(path.join(__dirname + '/main.html'))
+});
 
-
-adminRotas.get('/',function(req, res) {
+mainPage.get('/fotos',function(req, res) {
 	res.sendFile(path.join(__dirname + '/index.html'))
 });
 
@@ -18,9 +21,11 @@ adminRotas.get('/caio', function(req, res) {
 adminRotas.get('/gabriel', function(req, res) {
 	res.sendFile(path.join(__dirname + '/gabriel.html'))
 });
-
+adminRotas.get('/miguel', function(req, res) {
+	res.sendFile(path.join(__dirname + '/miguel.html'))
+});
 app.use('/fotos', adminRotas);
-
+app.use ('/', mainPage);
 
 
 
